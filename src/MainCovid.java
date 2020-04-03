@@ -14,20 +14,15 @@ import org.uncommons.watchmaker.framework.termination.TargetFitness;
 public class MainCovid
 {
 
-	public double A=10,N=1,R=5.12,x=Math.random();
-
 	public static void main(String[] args) 
 	{
-	     List<Double> minima = new MainCovid().evolveParams();
-	     //System.out.println(Arrays.toString(minima.toArray()));
-
-
+	     new MainCovid().evolveParams();
 	}
     public  Cell evolveParams()
     {
-    	String vrna="AUGC";
-    	String vacrna="GUC";
-    	int popsize=100;
+    	String vrna="UUUACCUACCCAGGAAAAGCCAACCAACCUCGAUCUCUUGUAGAUCUGUUCUCUAAACGAACUUUAAAAUCUGUGUAGCUGUCGCUCGGCUGCAUGCCUAGUGCACCUACGCAGUAUAAACAAUAAUAAAUUUUACUGUCGUUGACAAGAAACGAG";
+    	String vacrna="AAAUGGAUGGGUCCUUUUCGGUUGGUUGGAGCUAGAGAACAUCUAGACAAGAGAUUUGCUUGAAAUUUUAGACACAUCGACAGCGAGCCGACGUACGGAUCACGUGGAUGCGUCAUAUUUGUUAUUAUUUAAAAUGACAGCAACUGUUCUUUGCUC";
+    	int popsize=10000;
         CovidFactory factory = new CovidFactory(popsize,0.5, vrna, vacrna);
         List<EvolutionaryOperator<Cell>> operators = new ArrayList<EvolutionaryOperator<Cell>>();
         operators.add(new CovidMutation(2));
@@ -47,7 +42,7 @@ public class MainCovid
     {
         public void populationUpdate(PopulationData<? extends Cell> data)
         {
-            System.out.printf("Generation %d:\n",
+            System.out.printf("Generation %d:%d\n",
                               data.getGenerationNumber(),data.getPopulationSize());
         }
     }
