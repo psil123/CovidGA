@@ -11,12 +11,18 @@ public class CovidEvaluator implements FitnessEvaluator<Cell>
 	}
     public boolean isNatural()
     {
-    	return false;
+    	return true;
     }
 
     public double getFitness(Cell candidate,List<? extends Cell> population)
     {
-    	return candidate.removed/m;
+//    	if((candidate.type=='v' && candidate.removed==0)||(candidate.type=='a'))
+//    		return 1.0;
+    	if(candidate.type=='a')
+    		return 1.0;
+    	else if((candidate.type=='v' && candidate.removed==0))
+    		return 1.0;
+    	return 0.0;
     }
 
 }

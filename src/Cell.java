@@ -15,4 +15,9 @@ public class Cell
 		temp.removed=this.removed;
 		return temp;
 	}
+	public String toString()
+	{
+		return type+" "+removed+"\n";
+	}
+	
 }

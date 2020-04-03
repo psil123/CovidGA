@@ -20,8 +20,7 @@ public class CovidFactory extends AbstractCandidateFactory<Cell>
 	@Override
 	public Cell generateRandomCandidate(Random rng) 
 	{
-		if(vc-->0)
-			return virus.clone();
-		return vaccine.clone();
+		return virus.clone();
+		
 	}
 }

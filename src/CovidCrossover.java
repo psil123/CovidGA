@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -10,29 +11,63 @@ public class CovidCrossover extends AbstractCrossover<Cell>
 	{
 		super(crossoverPoints);
 	}
-
+    int LCSubStr(char X[], char Y[], int m, int n)  
+    { 
+        // Create a table to store lengths of longest common suffixes of 
+        // substrings. Note that LCSuff[i][j] contains length of longest 
+        // common suffix of X[0..i-1] and Y[0..j-1]. The first row and 
+        // first column entries have no logical meaning, they are used only 
+        // for simplicity of program 
+        int LCStuff[][] = new int[m + 1][n + 1]; 
+        int result = 0;  // To store length of the longest common substring 
+          
+        // Following steps build LCSuff[m+1][n+1] in bottom up fashion 
+        for (int i = 0; i <= m; i++)  
+        { 
+            for (int j = 0; j <= n; j++)  
+            { 
+                if (i == 0 || j == 0) 
+                    LCStuff[i][j] = 0; 
+                else if (X[i - 1] == Y[j - 1]) 
+                { 
+                    LCStuff[i][j] = LCStuff[i - 1][j - 1] + 1; 
+                    result = Integer.max(result, LCStuff[i][j]); 
+                }  
+                else
+                    LCStuff[i][j] = 0; 
+            } 
+        } 
+        return result; 
+    } 
 	@Override
 	protected List<Cell> mate(Cell parent1,Cell parent2, int numberOfCrossoverPoints,Random rng) 
 	{
-		List<Cell> offspring = null;//store the modified parent1 and parent2 here
-		/*
-		virus strand : AUGCAUGC and vaccine strand : CGU
-		5:09
-		find the longest common part of virus strand to which vaccine will bind nad remove it from virus strand
-		5:09
-		store the count in removed var
-		5:10
-		like vaccine strand will bind to GCA .... Hence virus strand 2 possible sites : AU<GCA>UGC or AUGCAU<GC>
-		5:10
-		here the first one is the longest
-		5:10
-		so that viral Cell object will now be modified in this manner ranseq="AUUGC" and removed=3
-		5:11
-		Cell class specs--
-		String rnaseq;
-		int removed;
-		char type; ///'v' for virus and 'a' fir vaccine
-		*/
+		List<Cell> offspring = new ArrayList<Cell>();
+		if((parent1.type=='v' && parent2.type=='v') || (parent1.type=='a' && parent2.type=='a'))
+		{
+			offspring.add(parent1);
+			offspring.add(parent2);
+		}
+		else
+		{
+			String s1,s2;
+			if(parent1.type=='v')
+			{
+				s1=parent1.rnaseq;
+				s2=parent2.rnaseq;
+			}
+			else
+			{
+				s2=parent1.rnaseq;
+				s1=parent2.rnaseq;
+			}
+			int c=this.LCSubStr(s1.toCharArray(),s2.toCharArray(),s1.length(),s2.length());
+			Cell temp=new Cell(s1, 'v');
+			temp.removed=c;
+			offspring.add(temp);
+			temp=new Cell(s2, 'a');
+			offspring.add(temp);
+		}
 		return offspring;
 	}
 
