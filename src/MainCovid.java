@@ -25,12 +25,12 @@ public class MainCovid
 				k2++;
 		System.out.println(k1+" "+k2);
 	}
-    public  List<EvaluatedCandidate<Cell>> evolveParams()
+    public  List<EvaluatedCandidate<Cell>> evolveParams(String vrna, String vacrna, int popsize, double alpha)
     {
-    	String vrna="UUUACCUACCCAGGAAAAGCCAACCAACCUCGAUCUCUUGUAGAUCUGUUCUCUAAACGAACUUUAAAAUCUGUGUAGCUGUCGCUCGGCUGCAUGCCUAGUGCACCUACGCAGUAUAAACAAUAAUAAAUUUUACUGUCGUUGACAAGAAACGAG";
-    	String vacrna="AAAUGGAUGGGUCCUUUUCGGUUGGUUGGAGCUAGAGAACAUCUAGACAAGAGAUUUGCUUGAAAUUUUAGACACAUCGACAGCGAGCCGACGUACGGAUCACGUGGAUGCGUCAUAUUUGUUAUUAUUUAAAAUGACAGCAACUGUUCUUUGCUCAUUGCUUA";
-    	int popsize=10000;
-    	double alpha=0.5;
+    	//String vrna="UUUACCUACCCAGGAAAAGCCAACCAACCUCGAUCUCUUGUAGAUCUGUUCUCUAAACGAACUUUAAAAUCUGUGUAGCUGUCGCUCGGCUGCAUGCCUAGUGCACCUACGCAGUAUAAACAAUAAUAAAUUUUACUGUCGUUGACAAGAAACGAG";
+    	//String vacrna="AAAUGGAUGGGUCCUUUUCGGUUGGUUGGAGCUAGAGAACAUCUAGACAAGAGAUUUGCUUGAAAUUUUAGACACAUCGACAGCGAGCCGACGUACGGAUCACGUGGAUGCGUCAUAUUUGUUAUUAUUUAAAAUGACAGCAACUGUUCUUUGCUCAUUGCUUA";
+    	//int popsize=10000;
+    	//double alpha=0.5;
     	List<Cell> seed=new ArrayList<Cell>();
     	for(int i=0;i<(int)(popsize*alpha);i++)
     		seed.add(new Cell(vrna,'v'));
@@ -55,14 +55,17 @@ public class MainCovid
 				k1++;
 			else if((i.getCandidate().type=='a'))
 				k2++;
-		System.out.println("Vaccine Efficiency : "+(1-(k1/(double)popsize)));
+		//System.out.println("Vaccine Efficiency : "+(1-(k1/(double)popsize)));
+		new MainMenu().getOutputText("Vaccine Efficiency : "+(1-(k1/(double)popsize)));
 		return temp;
     }
     public static class EvolutionLogger implements EvolutionObserver<Cell>
     {
         public void populationUpdate(PopulationData<? extends Cell> data)
         {
-        	System.out.println("Generation "+data.getGenerationNumber()+" : "+data.getMeanFitness()+" "+data.getPopulationSize()+" "+data.getElapsedTime()+" "+data.getFitnessStandardDeviation());
-        }
+        	//System.out.println("Generation "+data.getGenerationNumber()+" : "+data.getMeanFitness()+" "+data.getPopulationSize()+" "+data.getElapsedTime()+" "+data.getFitnessStandardDeviation());
+			String res="Generation "+data.getGenerationNumber()+" : "+data.getMeanFitness()+" "+data.getPopulationSize()+" "+data.getElapsedTime()+" "+data.getFitnessStandardDeviation();
+			new MainMenu().getOutputText(res);
+		}
     }
 }
