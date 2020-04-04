@@ -13,24 +13,25 @@ import org.uncommons.watchmaker.framework.selection.RouletteWheelSelection;
 
 public class MainCovid
 {
-
+	static MainMenu temp1;
 	public static void main(String[] args) 
 	{
-		List<EvaluatedCandidate<Cell>> temp=new MainCovid().evolveParams(); 
-		int k1=0,k2=0;
-		for(EvaluatedCandidate<Cell> i:temp)
-			if(i.getCandidate().type=='v')
-				k1++;
-			else if((i.getCandidate().type=='a'))
-				k2++;
-		System.out.println(k1+" "+k2);
+//		List<EvaluatedCandidate<Cell>> temp=new MainCovid();.evolveParams(); 
+//		int k1=0,k2=0;
+//		for(EvaluatedCandidate<Cell> i:temp)
+//			if(i.getCandidate().type=='v')
+//				k1++;
+//			else if((i.getCandidate().type=='a'))
+//				k2++;
+//		System.out.println(k1+" "+k2);
 	}
-    public  List<EvaluatedCandidate<Cell>> evolveParams(String vrna, String vacrna, int popsize, double alpha)
+    public  List<EvaluatedCandidate<Cell>>  evolveParams(String vrna, String vacrna, int popsize, double alpha,MainMenu some)
     {
     	//String vrna="UUUACCUACCCAGGAAAAGCCAACCAACCUCGAUCUCUUGUAGAUCUGUUCUCUAAACGAACUUUAAAAUCUGUGUAGCUGUCGCUCGGCUGCAUGCCUAGUGCACCUACGCAGUAUAAACAAUAAUAAAUUUUACUGUCGUUGACAAGAAACGAG";
     	//String vacrna="AAAUGGAUGGGUCCUUUUCGGUUGGUUGGAGCUAGAGAACAUCUAGACAAGAGAUUUGCUUGAAAUUUUAGACACAUCGACAGCGAGCCGACGUACGGAUCACGUGGAUGCGUCAUAUUUGUUAUUAUUUAAAAUGACAGCAACUGUUCUUUGCUCAUUGCUUA";
     	//int popsize=10000;
     	//double alpha=0.5;
+    	temp1=some;
     	List<Cell> seed=new ArrayList<Cell>();
     	for(int i=0;i<(int)(popsize*alpha);i++)
     		seed.add(new Cell(vrna,'v'));
@@ -48,7 +49,7 @@ public class MainCovid
                                                                                  new MersenneTwisterRNG());
         engine.addEvolutionObserver(new EvolutionLogger());
    
-        List<EvaluatedCandidate<Cell>> temp= engine.evolvePopulation(popsize,100,seed,new VirusNil(1000));
+        List<EvaluatedCandidate<Cell>> temp= engine.evolvePopulation(popsize,0,seed,new VirusNil(100000));
         int k1=0,k2=0;
 		for(EvaluatedCandidate<Cell> i:temp)
 			if(i.getCandidate().type=='v')
@@ -56,7 +57,7 @@ public class MainCovid
 			else if((i.getCandidate().type=='a'))
 				k2++;
 		//System.out.println("Vaccine Efficiency : "+(1-(k1/(double)popsize)));
-		new MainMenu().getOutputText("Vaccine Efficiency : "+(1-(k1/(double)popsize)));
+//		new MainMenu().getOutputText("Vaccine Efficiency : "+(1-(k1/(double)popsize)));
 		return temp;
     }
     public static class EvolutionLogger implements EvolutionObserver<Cell>
@@ -64,8 +65,10 @@ public class MainCovid
         public void populationUpdate(PopulationData<? extends Cell> data)
         {
         	//System.out.println("Generation "+data.getGenerationNumber()+" : "+data.getMeanFitness()+" "+data.getPopulationSize()+" "+data.getElapsedTime()+" "+data.getFitnessStandardDeviation());
-			String res="Generation "+data.getGenerationNumber()+" : "+data.getMeanFitness()+" "+data.getPopulationSize()+" "+data.getElapsedTime()+" "+data.getFitnessStandardDeviation();
-			new MainMenu().getOutputText(res);
+        	if(data.getGenerationNumber()==0)
+        		return;
+			String res="Generation "+data.getGenerationNumber()+" : "+data.getElapsedTime()+" "+data.getFitnessStandardDeviation();
+			temp1.getOutputText(res);
 		}
     }
 }

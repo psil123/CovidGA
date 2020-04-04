@@ -11,7 +11,7 @@ public class VirusNil implements TerminationCondition
 	@Override
 	public boolean shouldTerminate(PopulationData<?> populationData)
 	{
-		if((populationData.getFitnessStandardDeviation()==0 && populationData.getGenerationNumber()!=0)|| populationData.getElapsedTime()>=sec)
+		if((populationData.getFitnessStandardDeviation()==0 && populationData.getGenerationNumber()!=0)||populationData.getElapsedTime()>=sec)
 			return true;
 		return false;
 	}

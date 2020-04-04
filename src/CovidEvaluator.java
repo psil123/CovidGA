@@ -20,7 +20,7 @@ public class CovidEvaluator implements FitnessEvaluator<Cell>
 //    		return 1.0;
     	if(candidate.type=='a')
     		return 1.0;
-    	else if((candidate.type=='v' && candidate.removed==0))
+    	else if(candidate.type=='v' && (candidate.removed==0 ||candidate.removed/m<0.0167))
     		return 1.0;
     	return 0.0;
     }

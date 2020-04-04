@@ -1,9 +1,15 @@
 import java.awt.EventQueue;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
-public class MainMenu {
+public class MainMenu
+{
 
 	private JFrame frame;
 	private JTextArea jt;
@@ -11,8 +17,10 @@ public class MainMenu {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+	public static void main(String[] args)
+	{
+		EventQueue.invokeLater(new Runnable()
+		{
 			public void run() {
 				try {
 					MainMenu window = new MainMenu();
@@ -27,14 +35,17 @@ public class MainMenu {
 	/**
 	 * Create the application.
 	 */
-	public MainMenu() {
+	public MainMenu()
+	{
 		initialize();
 	}
-
+	String tempStr="";
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize()
+	{
+		MainMenu temp=this;
 		frame = new JFrame();
 		frame.setLayout(null);
 		frame.setBounds(100, 100, 1920, 1080);
@@ -62,7 +73,8 @@ public class MainMenu {
 		l3.setBounds(20,150, 80,30);
 		l4.setBounds(20,200, 80,30);
 		l5.setBounds(20,300, 80,30);
-		
+		jt = new JTextArea("Output here");
+		jt.setBounds(95,300,500,500);
 		JButton sub=new JButton("Initiate Algorithm");
 		sub.setBounds(250,250,200,30);
 		sub.addActionListener(new ActionListener(){
@@ -70,14 +82,13 @@ public class MainMenu {
 			{
 				try
 				{
-					//System.out.println("\n\n");
-					//Employee.insertion();
-					//beg.setOpaque(true);
+					jt.setText("Output Here");
+					tempStr="";
 					String s1=jt1.getText();
 					String s2=jt2.getText();
 					int pop=Integer.parseInt(jt3.getText());
-					double alph=Double.parseDouble(jt3.getText());
-					new MainCovid.evolveParams(s1,s2,pop,alph);
+					double alph=Double.parseDouble(jt4.getText());
+					new MainCovid().evolveParams(s1,s2,pop,alph,temp);
 				}
 				catch(Exception exc)
 				{
@@ -87,8 +98,7 @@ public class MainMenu {
 		});
 				
 		
-		jt = new JTextArea("Output here");
-		jt.setBounds(95,300,500,100);
+
 		
 		frame.add(jt1);
 		frame.add(jt2);
@@ -106,6 +116,7 @@ public class MainMenu {
 	}
 	public void getOutputText(String str)
 	{
-		jt.setText(str);
+		tempStr+=str+"\n";
+		jt.setText(tempStr);
 	}
 }
