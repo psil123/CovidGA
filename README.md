@@ -6,4 +6,4 @@ vacrna (RNA Sequence of the Vaccine)
 popsize (Viral RNA count + Vaccine RNA Count)
 alpha (Viral RNA count=alpha*popsize Vaccine RNA Count=(1-alpha)*popsize)
 
-#Click on CovidGA.jar to experience our model
+Click on CovidGA.jar to experience our model
