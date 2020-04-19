@@ -1,4 +1,4 @@
-# HackTheCrisis
+# CovidGA
 A simple model using Genetic Algorithm which takes in the RNA sequence of Covid-19 virus and that of our vaccine and predicts the time taken to eliminate the virus.
 It takes in 4 parameters --
 vrna (RNA Sequence of the Virus)
